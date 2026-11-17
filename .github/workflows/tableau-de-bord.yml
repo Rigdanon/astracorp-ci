@@ -23,3 +23,19 @@ jobs:
 
       - name: Vérifier les calculs
         run: python verifier.py
+
+  rapport:
+    needs: qualite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v7
+
+      - name: Générer le rapport
+        run: python diagnostic.py . public
+        
+      - name: Garder le rapport
+        uses: actions/upload-artifact@v7
+        with:
+          name: rapport
+          path: public/        
